@@ -1,5 +1,6 @@
 import React from "react";
 import Header from '../Header/StoreFrontHeader';
+import Footer from '../Footer/StoreFrontFooter';
 
 const MainComponent: React.FC = ({children}) => {
   return (
@@ -10,6 +11,7 @@ const MainComponent: React.FC = ({children}) => {
         {children}
       </div>
 
+      <Footer />
     </div>
   )
 }
