@@ -1,5 +1,6 @@
 export default interface User {
   id: number,
   name: string,
-  email: string
+  email: string,
+  profile: string
 }
