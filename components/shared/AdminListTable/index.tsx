@@ -2,7 +2,8 @@ import React from 'react';
 import styles from '../../../styles/AdminPanel.module.css';
 import { Table } from 'react-bootstrap';
 import StyledButton from '../StyledButton';
-
+import Pagination from '../Pagination';
+import Meta from '../../../dtos/Meta';
 
 interface AdminListTableProps {
   first_title: String,
@@ -10,10 +11,13 @@ interface AdminListTableProps {
   third_title?: String,
   fourth_title?: String,
   fifth_title?: String,
-  sixth_title?: String
+  sixth_title?: String,
+  meta?: Meta;
 }
 
-const AdminListTable: React.FC<AdminListTableProps> = ({ children, first_title, second_title, third_title, fourth_title, fifth_title, sixth_title }) => {
+const AdminListTable: React.FC<AdminListTableProps> = (
+  { children, first_title, second_title, third_title, fourth_title, fifth_title, sixth_title, meta }
+  ) => {
   return (
     <div className={styles.admin_panel}>
       <Table borderless={true} hover={true} responsive={true}>
@@ -34,17 +38,7 @@ const AdminListTable: React.FC<AdminListTableProps> = ({ children, first_title, 
         </tbody>
       </Table>
 
-      <div className="pagination justify-content-end">
-        <div className="pagination">
-          <StyledButton action="<" type_button="blue" />
-          <StyledButton action="1" type_button="blue" />
-          <StyledButton action="2" type_button="blue" />
-          <StyledButton action="3" type_button="blue" />
-          ...
-          <StyledButton action="31" type_button="blue" />
-          <StyledButton action=">" type_button="blue" />
-        </div>
-      </div>
+      <Pagination {...meta} />
     </div>
   )
 }
