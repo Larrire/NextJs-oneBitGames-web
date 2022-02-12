@@ -6,30 +6,30 @@ const api = axios.create({
   baseURL: 'http://localhost:3000',
 })
 
-api.interceptors.response.use(resp => {
-  if (resp.headers['access-token']) {
+api.interceptors.response.use(res => {
+  if (res.headers['access-token']) {
     const apiData: ApiData = {
-      'access-token': resp.headers['access-token'],
-      client: resp.headers.client,
-      expiry: resp.headers.expiry,
-      'token-type': resp.headers['token-type'],
-      uid: resp.headers.uid
+      'access-token': res.headers['access-token'],
+      client: res.headers.client,
+      expiry: res.headers.expiry,
+      'token-type': res.headers['token-type'],
+      uid: res.headers.uid
     };
 
     api.defaults.headers = apiData;
     Cookie.set('@api-data', apiData);
   }
 
-  return resp;
+  return res;
 })
 
 api.interceptors.request.use(req => {
   if (req.url.includes('admin')) {
     const apiData: ApiData = JSON.parse(Cookie.get('@api-data'));
-    req.headers = apiData
+    req.headers = apiData;
   }
 
-  return req
+  return req;
 })
 
 export default api;

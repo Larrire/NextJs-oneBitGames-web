@@ -7,14 +7,19 @@ import User from "../../dtos/User";
 import ApiData from "../../dtos/ApiData";
 
 const withAuthAdmin = (Component) => {
-
   const Auth = (props) => {
     const router = useRouter();
+
+    if( !Cookie.get('@api-data')){
+      router.push('/Auth/Login');
+      return null
+    } 
+
     const loggedUser: User = useSelector( (state:AuthState) => state.auth.loggedUser );
     const apiData: ApiData = JSON.parse(Cookie.get('@api-data'));
 
     if( !loggedUser || 
-      loggedUser.profile !== 'admin' ||
+      loggedUser.profile !== 'admin' || 
       !apiData ||
       !apiData['access-token'] ||
       apiData['access-token'] === '') {
